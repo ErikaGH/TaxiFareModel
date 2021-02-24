@@ -1,11 +1,15 @@
 import pandas as pd
+from google.cloud import storage
 
 AWS_BUCKET_PATH = "s3://wagon-public-datasets/taxi-fare-train.csv"
+BUCKET_NAME = 'lewagon-bootcamp-305809'
+BUCKET_TRAIN_DATA_PATH = 'data/train_1k.csv'
 
 
 def get_data(nrows=10_000):
     '''returns a DataFrame with nrows from s3 bucket'''
-    df = pd.read_csv(AWS_BUCKET_PATH, nrows=nrows)
+    client = storage.Client()
+    df = pd.read_csv(f"gs://{BUCKET_NAME}/{BUCKET_TRAIN_DATA_PATH}", nrows=1000)
     return df
 
 
